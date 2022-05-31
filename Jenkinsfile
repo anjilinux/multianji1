@@ -1,63 +1,50 @@
 pipeline {
-    agent any 
+    agent any
     stages {
-        stage('Compile and Clean') { 
-            steps {
-
-                sh "mvn clean compile"
+        stage('maven validate') {
+            steps{
+               bat 'mvn -v'
             }
-        }
-        stage('Test') { 
-            steps {
-                sh "mvn test site"
-            }
-            
-             post {
-                always {
-                    junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'   
-                }
-            }     
-        }
-
-        stage('deploy') { 
-            steps {
-                sh "mvn package"
-            }
-        }
-
-
-        stage('Build Docker image'){
-            steps {
-                sh 'docker build -t anvbhaskar/docker_jenkins_pipeline:${BUILD_NUMBER} .'
-            }
-        }
-
-        stage('Docker Login'){
-            
-            steps {
-                 withCredentials([string(credentialsId: 'DockerId', variable: 'Dockerpwd')]) {
-                    sh "docker login -u anvbhaskar -p ${Dockerpwd}"
-                }
-            }                
-        }
-
-        stage('Docker Push'){
-            steps {
-                sh 'docker push anvbhaskar/docker_jenkins_pipeline:${BUILD_NUMBER}'
-            }
-        }
         
-        stage('Docker deploy'){
-            steps {
-                sh 'docker run -itd -p 8081:8080 anvbhaskar/springboot:0.0.3'
+        }
+    
+        stage('pom.xml-from') {
+            steps{
+               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/maven1.git'
+            }
+        }
+    
+    
+         stage('clean test'){
+             steps{
+                 bat 'mvn clean test'
+             }
+         }
+    
+        stage('clean package'){
+            steps{
+                bat 'mvn clean package'
+            }
+        }
+    
+       
+       
+       
+        stage('clean install'){
+            steps{
+                bat 'mvn clean install'
             }
         }
 
-        
-        stage('Archving') { 
-            steps {
-                 archiveArtifacts '**/target/*.jar'
-            }
-        }
+
+        stage('report testall'){
+           steps{
+               cucumber buildStatus: 'null', customCssFiles: '', customJsFiles: '', failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
+           }
+       }
+
+
+
+
     }
 }
