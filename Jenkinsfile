@@ -9,6 +9,21 @@ pipeline {
             }
         }
         
+        
+        
+        
+        
+        stage('git credensial') {
+           steps{
+               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/maven1.git'
+           }
+       }  
+    
+        
+        
+        
+        
+        
         stage('clean test') {
             steps{
                 bat 'mvn test'
@@ -29,12 +44,7 @@ pipeline {
     
     
     
-       stage('git credensial') {
-           steps{
-               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/maven1.git'
-           }
-       }  
-    
+       
     
     
     
