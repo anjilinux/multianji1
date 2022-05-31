@@ -1,50 +1,76 @@
 pipeline {
     agent any
-    stages {
-        stage('maven validate') {
+
+    stages{
+        stage('checkout ') {
             steps{
-               bat 'mvn -v'
+                echo "validate maven"
+                bat 'mvn -v'
             }
+        }
         
+        stage('clean test') {
+            steps{
+                bat 'mvn test'
+            }
         }
     
-        stage('pom.xml-from') {
+        stage('clean package') {
             steps{
-               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/multianji1.git'
+                bat 'mvn package'
+            }
+        }   
+    
+        stage('install') {
+            steps{
+                bat 'mvn install'
             }
         }
     
     
-         stage('clean test'){
-             steps{
-                 bat 'mvn clean test'
-             }
-         }
     
-        stage('clean package'){
-            steps{
-                bat 'mvn clean package'
-            }
-        }
-    
-       
-       
-       
-        stage('clean install'){
-            steps{
-                bat 'mvn clean install'
-            }
-        }
-
-
-        stage('report testall'){
+       stage('git credensial') {
            steps{
-               cucumber buildStatus: 'null', customCssFiles: '', customJsFiles: '', failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
+               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/maven1.git'
            }
-       }
-
-
-
-
+       }  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
