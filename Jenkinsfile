@@ -10,7 +10,7 @@ pipeline {
     
         stage('pom.xml-from') {
             steps{
-               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/maven1.git'
+               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/multianji1.git'
             }
         }
     
