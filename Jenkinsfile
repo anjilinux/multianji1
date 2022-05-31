@@ -73,12 +73,72 @@ pipeline {
             }
         }
     
+        
+        
+          
+        stage('clean testq') {
+            steps{
+                bat 'mvn test'
+            }
+        }
+    
+        stage('clean packageq') {
+            steps{
+                bat 'mvn package'
+            }
+        }   
+    
+        stage('installq') {
+            steps{
+                bat 'mvn install'
+            }
+        }
+    
+    
+    
+      
+        stage('clean test3') {
+            steps{
+                bat 'mvn test'
+            }
+        }
+    
+        stage('clean package3') {
+            steps{
+                bat 'mvn package'
+            }
+        }   
+    
+        stage('install4') {
+            steps{
+                bat 'mvn install'
+            }
+        }
     
     
        
     
     
     
+    
+      
+        stage('clean test5') {
+            steps{
+                bat 'mvn test'
+            }
+        }
+    
+        stage('clean package55') {
+            steps{
+                bat 'mvn package'
+            }
+        }   
+    
+        stage('install56') {
+            steps{
+                bat 'mvn install'
+            }
+        }
     
     
     
