@@ -2,6 +2,23 @@ pipeline {
     agent any
 
     stages{
+        
+        
+         
+        stage('git credensial') {
+           steps{
+               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/maven1.git'
+           }
+       }  
+    
+        
+        
+        
+        
+        
+        
+        
+        
         stage('checkout ') {
             steps{
                 echo "validate maven"
