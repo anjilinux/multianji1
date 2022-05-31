@@ -8,20 +8,20 @@ pipeline {
     stages {
         stage('Checkoout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '39a0281c-5ab6-4158-bb33-b7b1aab87117', url: 'https://github.com/akannan1087/myApr2022weekendRepo']]])
+               checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/maven1.git']]])
             }
         }
         
         stage ("Build") {
             steps {
-                sh "mvn clean install -f MyWebApp/pom.xml"
+                bat "mvn clean install' 
             }
         }
 
         stage ("Code scan") {
             steps {
                 withSonarQubeEnv ("SonarQube") {
-                sh "mvn sonar:sonar -f MyWebApp/pom.xml"
+                bat "mvn sonar:sonar "
             }
           }
         }
