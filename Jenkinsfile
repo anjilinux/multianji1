@@ -17,11 +17,21 @@ pipeline {
         
         
         
-        
-        
-        stage('checkout ') {
+        stage('validate ') {
             steps{
-                echo "validate maven"
+                echo "validate maveni"
+                bat 'mvn -v'
+            }
+        }
+        
+        
+        
+
+        
+        
+        stage('checkout. ') {
+            steps{
+                echo "validate maveno"
                 bat 'mvn -v'
             }
         }
@@ -31,6 +41,16 @@ pipeline {
 
     
         
+        stage('checkout1 ') {
+            steps{
+                echo "validate maven11"
+                bat 'mvn -v'
+            }
+        }
+        
+        
+        
+
         
         
         
