@@ -28,13 +28,7 @@ pipeline {
         
         
         
-        
-        
-        stage('git credensial') {
-           steps{
-               git credentialsId: 'TOKEN-GIT', url: 'https://github.com/rritsoft/maven1.git'
-           }
-       }  
+
     
         
         
